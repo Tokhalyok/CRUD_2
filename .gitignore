@@ -17,3 +17,7 @@ appsettings.*.json
 # OS
 .DS_Store
 Thumbs.db
+# Include source files
+!src/
+!src/**/*
+!ProductApi/**/*
