@@ -33,7 +33,7 @@ import { Product } from '../../models/product.model';
               (mouseleave)="onRowHover($event, false)"
             >
               <td style="padding: 12px; color: #333; font-weight: 500;">{{ product.name }}</td>
-              <td style="padding: 12px; text-align: right; color: #007bff; font-weight: 600;">{{ product.price | currency:'RUB':'symbol':'1.0-0' }}</td>
+              <td style="padding: 12px; text-align: right; color: #007bff; font-weight: 600;">{{ product.price | currency:'KZT':'symbol':'1.0-0' }}</td>
               <td style="padding: 12px; color: #666;">{{ product.category }}</td>
               <td style="padding: 12px; text-align: center;">
                 <button

@@ -31,7 +31,7 @@ import { Product } from '../../models/product.model';
       </div>
 
       <div style="margin-bottom: 15px;">
-        <label style="display: block; margin-bottom: 6px; font-weight: 600; color: #333;">Цена (₽)</label>
+        <label style="display: block; margin-bottom: 6px; font-weight: 600; color: #333;">Цена (₸)</label>
         <input
           [(ngModel)]="form.price"
           type="number"
