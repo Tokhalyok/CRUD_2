@@ -8,7 +8,10 @@ import { Product } from '../models/product.model';
 export class ProductService {
   private apiUrl = 'http://localhost:5231/api/products';
   private productsSubject = new BehaviorSubject<Product[]>([]);
+  private editingProductSubject = new BehaviorSubject<Product | null>(null);
+
   public products$ = this.productsSubject.asObservable();
+  public editingProduct$ = this.editingProductSubject.asObservable();
 
   constructor(private http: HttpClient) {
     this.loadProducts();
@@ -16,12 +19,17 @@ export class ProductService {
 
   loadProducts(): void {
     this.http.get<Product[]>(this.apiUrl).subscribe(
-      products => this.productsSubject.next(products)
+      products => this.productsSubject.next(products),
+      error => console.error('Error loading products:', error)
     );
   }
 
   getProducts(): Observable<Product[]> {
     return this.products$;
+  }
+
+  setEditingProduct(product: Product | null): void {
+    this.editingProductSubject.next(product);
   }
 
   createProduct(product: Product): Observable<Product> {
@@ -43,6 +51,7 @@ export class ProductService {
           updated[index] = updatedProduct;
           this.productsSubject.next(updated);
         }
+        this.editingProductSubject.next(null);
       })
     );
   }
