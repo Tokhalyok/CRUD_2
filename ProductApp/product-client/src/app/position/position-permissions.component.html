@@ -1,0 +1,78 @@
+<div class="position-permissions">
+  <div class="permissions-header">
+    <h3>Права доступа должности</h3>
+    <div *ngIf="position" class="position-info">
+      <strong>{{ position.name }}</strong>
+      <span class="department">{{ position.department }}</span>
+    </div>
+  </div>
+
+  <div *ngIf="!position" class="no-position-selected">
+    <p>Выберите должность для управления правами доступа</p>
+  </div>
+
+  <div *ngIf="position" class="permissions-content">
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <div *ngIf="successMessage" class="success-message">
+      {{ successMessage }}
+    </div>
+
+    <div *ngIf="!isEditing" class="permissions-view">
+      <div class="permissions-list">
+        <div
+          *ngFor="let permission of availablePermissions"
+          class="permission-item"
+          [class.has-permission]="hasPermission(permission.key)"
+        >
+          <div class="permission-info">
+            <div class="permission-label">{{ permission.label }}</div>
+            <div class="permission-description">{{ permission.description }}</div>
+          </div>
+          <div class="permission-status">
+            <span class="status-indicator" [class.active]="hasPermission(permission.key)">
+              {{ hasPermission(permission.key) ? '✓' : '✗' }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="permissions-actions">
+        <button (click)="startEditing()" class="btn btn-primary">
+          Редактировать права
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="isEditing" class="permissions-edit">
+      <div class="permissions-grid">
+        <div
+          *ngFor="let permission of availablePermissions"
+          class="permission-checkbox"
+          (click)="togglePermission(permission.key)"
+        >
+          <input
+            type="checkbox"
+            [checked]="hasPermission(permission.key)"
+            readonly
+          />
+          <div class="checkbox-content">
+            <div class="checkbox-label">{{ permission.label }}</div>
+            <div class="checkbox-description">{{ permission.description }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="edit-actions">
+        <button (click)="savePermissions()" class="btn btn-success">
+          Сохранить
+        </button>
+        <button (click)="cancelEditing()" class="btn btn-secondary">
+          Отмена
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

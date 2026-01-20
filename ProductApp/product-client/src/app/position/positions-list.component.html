@@ -1,0 +1,122 @@
+<div class="positions-list">
+  <div class="list-header">
+    <h3>Список должностей</h3>
+    <div class="list-stats">
+      <span class="stat-item">
+        Всего: <strong>{{ positions.length }}</strong>
+      </span>
+      <span class="stat-item">
+        Активные: <strong>{{ getActivePositionCount() }}</strong>
+      </span>
+      <span class="stat-item">
+        Неактивные: <strong>{{ getInactivePositionCount() }}</strong>
+      </span>
+    </div>
+  </div>
+
+  <div class="list-filters">
+    <div class="filter-group">
+      <input
+        [(ngModel)]="searchTerm"
+        (input)="onSearch()"
+        type="text"
+        placeholder="Поиск по названию, описанию или отделу"
+        class="search-input"
+      />
+    </div>
+
+    <div class="filter-group">
+      <select
+        [(ngModel)]="selectedDepartment"
+        (change)="onDepartmentFilter()"
+        class="department-filter"
+      >
+        <option value="">Все отделы</option>
+        <option *ngFor="let dept of getDepartments()" [value]="dept">
+          {{ dept }}
+        </option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <button (click)="clearFilters()" class="btn btn-secondary">
+        Очистить фильтры
+      </button>
+    </div>
+  </div>
+
+  <div class="list-content">
+    <div *ngIf="filteredPositions.length === 0" class="empty-state">
+      <p *ngIf="positions.length === 0">
+        Нет добавленных должностей
+      </p>
+      <p *ngIf="positions.length > 0">
+        Нет должностей, соответствующих фильтрам
+      </p>
+    </div>
+
+    <div *ngIf="filteredPositions.length > 0" class="positions-grid">
+      <div
+        *ngFor="let position of filteredPositions"
+        class="position-card"
+        [class.selected]="selectedPosition?.id === position.id"
+        [class.inactive]="!position.isActive"
+      >
+        <div class="card-header">
+          <div class="position-title">
+            <h4>{{ position.name }}</h4>
+            <span class="department-badge">{{ position.department }}</span>
+          </div>
+          <div class="position-status">
+            <span class="status-indicator" [class.active]="position.isActive">
+              {{ position.isActive ? 'Активна' : 'Неактивна' }}
+            </span>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <div *ngIf="position.description" class="position-description">
+            {{ position.description }}
+          </div>
+
+          <div *ngIf="position.salary" class="position-salary">
+            Зарплата: <strong>{{ position.salary | currency:'KZT':'symbol' }}</strong>
+          </div>
+
+          <div *ngIf="hasPermissions(position)" class="position-permissions">
+            <span class="permissions-label">Права:</span>
+            <div class="permissions-badges">
+              <span
+                *ngFor="let permission of position.permissions"
+                class="permission-badge"
+              >
+                {{ permission }}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-actions">
+          <button
+            (click)="onSelectPosition(position)"
+            class="btn btn-sm btn-outline"
+          >
+            Выбрать
+          </button>
+          <button
+            (click)="onEditPosition(position)"
+            class="btn btn-sm btn-primary"
+          >
+            Редактировать
+          </button>
+          <button
+            (click)="onDeletePosition(position)"
+            class="btn btn-sm btn-danger"
+          >
+            Удалить
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
