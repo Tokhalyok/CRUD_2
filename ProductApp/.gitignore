@@ -1,0 +1,23 @@
+# Angular
+node_modules/
+dist/
+.angular/
+.vscode/
+.angular.cache
+
+# .NET
+bin/
+obj/
+.vs/
+
+# Environment
+.env
+appsettings.*.json
+
+# OS
+.DS_Store
+Thumbs.db
+# Include source files
+!src/
+!src/**/*
+!ProductApi/**/*
