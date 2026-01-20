@@ -1,0 +1,51 @@
+<div class="form-container">
+  <h2>{{ isEditing ? 'Редактировать' : 'Добавить товар' }}</h2>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
+
+  <div class="form-group">
+    <label>Название</label>
+    <input
+      [(ngModel)]="form.name"
+      type="text"
+      placeholder="Например: Смартфон"
+    />
+  </div>
+
+  <div class="form-group">
+    <label>Цена (₸)</label>
+    <input
+      [(ngModel)]="form.price"
+      type="number"
+      placeholder="1000"
+    />
+  </div>
+
+  <div class="form-group">
+    <label>Категория</label>
+    <input
+      [(ngModel)]="form.category"
+      type="text"
+      placeholder="Например: Электроника"
+    />
+  </div>
+
+  <div class="form-actions">
+    <button (click)="submit()">
+      {{ isEditing ? 'Сохранить' : 'Добавить' }}
+    </button>
+    <button
+      *ngIf="isEditing"
+      (click)="cancel()"
+      class="cancel-btn"
+    >
+      Отмена
+    </button>
+  </div>
+</div>
