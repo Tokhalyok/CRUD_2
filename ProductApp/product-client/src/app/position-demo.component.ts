@@ -89,7 +89,6 @@ export class PositionDemoComponent implements OnInit {
   }
 
   loadPositions(): void {
-    // Демонстрационные данные
     this.positions = [
       {
         id: 1,

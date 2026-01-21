@@ -12,7 +12,6 @@ export class PositionService {
 
   constructor(private http: HttpClient) {}
 
-  // Простые CRUD операции без сложной реактивности
   getPositions(filter?: PositionFilter): Observable<Position[]> {
     return this.http.get<Position[]>(this.apiUrl);
   }
@@ -33,7 +32,6 @@ export class PositionService {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
-  // Простые методы для работы с данными без BehaviorSubject
   getPositionsSync(): Position[] {
     return this.positions;
   }
@@ -57,7 +55,6 @@ export class PositionService {
     this.positions = this.positions.filter(p => p.id !== id);
   }
 
-  // Простые утилитарные методы
   getDepartments(): string[] {
     const departments = this.positions.map(p => p.department);
     return [...new Set(departments)];

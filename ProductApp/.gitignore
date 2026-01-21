@@ -13,6 +13,28 @@ obj/
 # Environment
 .env
 appsettings.*.json
+# .NET
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Node / Angular
+node_modules/
+dist/
+.angular/
+npm-debug.log*
+yarn-error.log*
+
+# OS
+Thumbs.db
+.DS_Store
 
 # OS
 .DS_Store
